@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shuffle And Sort</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <title>Shuffle And Sort</title>
+<style>
+body {
+    background-color: #EFEFEF;
+	}
+header {
+	background: #fff;
+}
+header h1 {
+    margin: 0px;
+    padding: 16px 0px;
+    border-bottom: 4px solid #BFBFBF;
+}
+footer {
+    font-size: 0.8em;
+    text-align: center;
+    color: #333;
+    padding: 16px 0px;
+}
+.square {
+    background-color: #6F98A8;
+    height: 190px;
+    
+}
+.shuffle {
+    padding: 0;
+    text-align: center;
+    background-color: #EFEFEF;
+}
+.dataone {
+    padding: 10px;
+    display: inline-block;
+	font-size: 14pt;
+	text-align: center;
+	color:black;
+}
+.btn:focus {
+    outline: 0;
+}
+.btn {
+	background: #72c3dc;
+	padding: 20px 0 20px 0;
+	min-width: 290px;
+    display:inline-block;
+    text-transform: uppercase;
+    font-size: 16px;
+    border-bottom: 7px solid #2b8ead;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 13px;
+    margin: 25px 0px 0px 0px;
+}
+.dataone .dataValue {
+    font-size: 124px;
+    color: white;
+    text-align: center;
+	font-family: sans-serif;
+}
+.colorOne {
+    background-color: #6F98A8;
+}
+.colortwo {
+    background-color: #2B8EAD;
+}
+.colorthree {
+    background-color: #2F454E;
+}
+.colorfour {
+    background-color: #BFBFBF;
+
+}
+@media only screen and (max-width: 991px) and (min-width: 768px)  {
+    .shuffle .btn
+    {
+        min-width: 100%;
+    }
+	.shuffle {
+		max-width: 100%;
+	}
+	}
+@media (max-width:767px)
+{
+    .shuffle
+    {
+        background-color: white;
+    }
+    #shuffle .dataone
+    {
+        border-left: 5px solid;
+        background-color: #efefef;
+        height: 35px;
+        margin-bottom: 7px;
+    }
+    .shuffle .btn
+    {
+        min-width: 100%;
+    }
+    #shuffle .dataone .dataValue
+    {
+        color: #10000f;
+        font-size: 15px;
+    }
+    #shuffle .colorOne
+    {
+        border-left-color: #6F98A8;
+    }
+    #shuffle .colortwo
+    {
+        border-left-color: #2B8EAD;
+    }
+    #shuffle .colorthree
+    {
+        border-left-color: #2F454E;
+    }
+    #shuffle .colorfour
+    {
+        border-left-color: #BFBFBF;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+        <header>
+            <h1 class="text-center">Shuffle and Sort</h1>
+            <div class="line"></div>
+        </header>
+    <div class="shuffle col-md-12">
+	        <div class="col-md-8 col-sm-8">
+            <div class="row text-center" id="shuffle"></div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="row">
+                <div class="col-md-12  col-sm-12  col-xs-6"> 
+                    <button class="btn btn-primary"
+                        onclick="shuffleSortObj.shuffle()">Shuffle</button>
+                </div>
+                <div class="col-md-12 col-sm-12  col-xs-6"> 
+                    <button class="btn btn-primary" onclick="shuffleSortObj.sort()">Sort</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script>
+	var shuffleSortObj = (function shuffleAndSort() {
+    const array = [{ text:1, class: 'colorOne' }, { text:2, class: 'colortwo' }, { text:3, class: 'colorthree' }, { text:4, class: 'colortwo' }, { text:5, class: 'colorthree' }, { text:6, class: 'colorfour' }, { text: 7, class: 'colorfour' },{ text:8, class: 'colorOne' }, { text:9, class: 'colorthree' }];
+function shuffle() {
+    let ctr = array.length;
+    let temp;
+    let index;
+
+    // While there are elements in the array
+    while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = array[ctr];
+        array[ctr] = array[index];
+        array[index] = temp;
+    }
+    render(array);
+}
+function sort() {
+    array.sort(function (x, y) {
+        return x.text - y.text;
+    });
+    render(array);
+}
+function render(array) {
+    document.getElementById('shuffle').innerHTML = '';
+	for(var i = 0; i < array.length; i++)
+	{
+		var dataone = document.createElement("div");
+		var dataValue = document.createElement("div");
+		dataone.className = "col-md-4 col-sm-4 col-xs-12 square dataone "+ array[i].class;
+		dataValue.className = "dataValue";
+
+		dataValue.innerHTML = array[i].text;
+		dataone.appendChild(dataValue);
+
+		document.getElementById("shuffle").appendChild(dataone);
+	}
+}
+return {
+    shuffle, sort
+}
+})();
+function load()
+{
+	shuffleSortObj.sort();
+}
+window.onload = load;
+</script>
+</body>
+</html>
